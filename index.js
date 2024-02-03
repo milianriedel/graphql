@@ -5,6 +5,20 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const typeDefs = gql`
   type Query {
     hello: String
+    jobs: JobQueryResponse
+  }
+
+  type JobQueryResponse {
+    data: [Job]
+  }
+
+  type Job {
+    id: ID
+    attributes: JobAttributes
+  }
+
+  type JobAttributes {
+    name: String
   }
 `;
 
@@ -12,6 +26,15 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     hello: () => 'Hello, world!',
+    jobs: () => ({
+      data: [
+        { id: "61", attributes: { name: "Učitel dějepisu" } },
+        { id: "63", attributes: { name: "asdasd" } },
+        { id: "62", attributes: { name: "asd" } },
+        { id: "64", attributes: { name: "asdasd" } },
+        { id: "60", attributes: { name: "Učitel matematiky" } }
+      ]
+    }),
   },
 };
 
